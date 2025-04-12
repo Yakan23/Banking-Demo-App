@@ -2,6 +2,8 @@
 import { type ClassValue, clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -193,3 +195,61 @@ export const getTransactionStatus = (date: Date) => {
 
   return date > twoDaysAgo ? "Processing" : "Success";
 };
+
+export const authFormSchema = (type:string)=> z.object
+({
+  firstName: type === 'sign-in' ? z.string().optional() :
+    z.string().min(2, {
+      message:"First name must be at least 2 characters long."
+    }),
+  
+  lastName: type === 'sign-in' ? z.string().optional() :
+    z.string().min(2, {
+      message:"Last name must be at least 2 characters long."
+    }),
+  
+  address1: type === 'sign-in' ? z.string().optional() :
+    z.string().min(3, {
+      message:"Address must be at least 3 characters long."
+    }).max(50, {
+      message:"Address must be at most 50 characters long."
+    }),
+  city: type === 'sign-in' ? z.string().optional() :
+    z.string().min(3, {
+      message:"City must be at least 3 characters long."
+    }).max(50, {
+      message:"City must be at most 50 characters long."
+    }),
+  
+  
+  state: type === 'sign-in' ? z.string().optional() :
+    z.string().min(2, {
+      message:"State code must be at least 2 characters long."
+    }).max(2, {
+      message:"State code must be at most 2 characters long."
+    }),
+  
+  zipCode: type === 'sign-in' ? z.string().optional() :
+    z.string().min(3, {
+      message:"Zip code must be at least 3 characters long."
+    }).max(5, {
+      message:"Zip code must be at most 5 characters long."
+    }),
+  
+  dob: type === 'sign-in' ? z.string().optional() :
+    z.string(),
+  
+  ssn: type === 'sign-in' ? z.string().optional() :
+    z.string().min(4, {
+      message:"SSN must be at least 4 characters long."
+    }).max(9, {
+      message:"SSN must be at most 9 characters long."
+    }),
+  
+  email: z.string().email(),
+  
+  password: z.string().min(8, {
+    message:"Password must be at least 8 characters long."
+  })
+  
+})

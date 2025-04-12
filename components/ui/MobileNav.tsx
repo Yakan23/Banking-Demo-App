@@ -45,7 +45,10 @@ function MobileNav({user}:MobileNavProps) {
                                 )}
                             </nav>
                         </SheetClose>
-                                footer
+                        <Footer
+                            user={user}
+                            type="mobile"    
+                        />
                     </div>
                     user
                 </nav>
