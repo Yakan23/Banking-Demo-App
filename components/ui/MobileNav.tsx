@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { sidebarLinks } from '@/constants'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import Footer from './Footer'
 function MobileNav({user}:MobileNavProps) {
   const pathName=usePathname()
     return (

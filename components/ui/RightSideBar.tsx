@@ -53,7 +53,7 @@ function RightSideBar({user, banks,transactions}:RightSidebarProps) {
                       />
                     </div>
                     {banks[1] && (
-                      <div className='absolute r-0 z-0 top-8 w-[90%]'>
+                      <div className='absolute right-0 top-8 z-0  w-[90%]'>
                           <BankCard
                             key={banks[1].$id}
                             account={banks[1]}
