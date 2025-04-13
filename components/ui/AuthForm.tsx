@@ -14,6 +14,7 @@ import CustomInput from './CustomInput'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { signIn, signUp } from '@/lib/actions/user.actions'
+import PlaidLink from './PlaidLink'
 
 
 
@@ -37,10 +38,26 @@ function AuthForm({ type }: { type: string }) {
     setisLoading(true)
     try {
       if (type === "sign-up") {
-        const newUser = await signUp(values)
+        const userData = {
+          firstName: values.firstName!,
+          lastName: values.lastName!,
+          address1: values.address1!,
+          city:values.city!,
+          state:values.state!,
+          postalCode:values.postalCode!,
+          dateOfBirth:values.dateOfBirth!,
+          ssn: values.ssn!,
+          email: values.email,
+          password:values.password,
+          
+        }
+        const newUser = await signUp(userData)
+
         setUser(newUser)
+
       
-      } else {
+      }
+      if(type==="sign-in") {
         const response = await signIn({
           email: values.email,
           password: values.password
@@ -86,7 +103,12 @@ function AuthForm({ type }: { type: string }) {
       </header>
       {user ? (
         <div className='flex flex-col gap-4'>
-
+          
+            <PlaidLink
+              user={user}
+              variant="primary"
+            
+            />
         </div> 
       ) :
         (
@@ -142,7 +164,7 @@ function AuthForm({ type }: { type: string }) {
 
                         <CustomInput
                         control={form.control}
-                        name='zipCode'
+                        name='postalCode'
                         placeholder='ex: 11111'
                         label='Zip Code'
                         inputType='text'
@@ -152,7 +174,7 @@ function AuthForm({ type }: { type: string }) {
                       <div className='flex justify-between gap-4'>
                         <CustomInput
                         control={form.control}
-                        name='dob'
+                        name='dateOfBirth'
                         placeholder='YYYY-MM-DD'
                         label='Date of birth'
                         inputType='text'
@@ -189,9 +211,7 @@ function AuthForm({ type }: { type: string }) {
                     {isLoading ? (
                       
                       <>
-                        <Loader2 size={20} className='animate-spin'>
-                          &nbsp; Loading...
-                        </Loader2>
+                      <Loader2 size={20} className="animate-spin" /> &nbsp; Loading...
                       </>
                     ) : 
                       type==="sign-in" ? "Sign In" : "Sign Up"
