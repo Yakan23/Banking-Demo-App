@@ -1,5 +1,5 @@
 import React from 'react'
-import AnimatedCounter from '../ui/AnimatedCounter'
+import AnimatedCounter from './/AnimatedCounter'
 import DoughnutChart from './DoughnutChart'
 
 function TotalBalanceBox({accounts=[],totalBanks,totalCurrentBalance}:TotlaBalanceBoxProps) {
