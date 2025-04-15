@@ -229,14 +229,14 @@ export const authFormSchema = (type:string)=> z.object
       message:"State code must be at most 2 characters long."
     }),
   
-  zipCode: type === 'sign-in' ? z.string().optional() :
+  postalCode: type === 'sign-in' ? z.string().optional() :
     z.string().min(3, {
       message:"Zip code must be at least 3 characters long."
     }).max(5, {
       message:"Zip code must be at most 5 characters long."
     }),
   
-  dob: type === 'sign-in' ? z.string().optional() :
+  dateOfBirth: type === 'sign-in' ? z.string().optional() :
     z.string(),
   
   ssn: type === 'sign-in' ? z.string().optional() :
